@@ -1,0 +1,175 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+
+* {
+    font-family: 'Instrument Sans';
+}
+
+html {
+background: url('/Eclipse/images/background.png');
+background-repeat: no-repeat;
+background-position: center center;
+background-size: cover;
+}
+
+html, body {
+    margin:0;
+    padding:0;
+    height: 100%;
+    width: 100%;
+}
+
+.app-container {
+    display: flex;
+    width: 50vw;
+    height: 100%;
+    padding: 25px 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    background: #FCFCFC;
+}
+
+@media screen and (max-width:900px) {
+    .app-container {
+        width:100vw;
+    }
+}
+
+.login-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.login-container .header-group h1 {
+    
+    margin-bottom:0;
+    color: #000;
+font-family: "Instrument Sans";
+font-size: 33px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.login-container .header-group h3 {
+    
+    margin-top:0;
+    color: #505050;
+font-family: "Instrument Sans";
+font-size: 15px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+.login-container .header-group {
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 5px;
+align-self: stretch;
+}
+
+.login-container label {
+    color: #000;
+font-family: "Instrument Sans";
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.alert {
+    display: flex;
+padding: 20px 25px;
+align-items: center;
+gap: 20px;
+align-self: stretch;
+flex-direction:row;
+
+border-radius: 15px;
+background: #EEC643;
+}
+
+.alert #icon {
+    width: 40px;
+    height: 40px;
+}
+
+.login-container form input[type="email"], .login-container form input[type="password"], .login-container form input[type="text"] {
+    display: flex;
+    height: 50px;
+    padding: 10px 15px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 15px;
+border: 2px solid #D4D2E0;
+
+background: #FFF;
+}
+
+.login-container form input[type="checkbox"] {
+    accent-color: #B439FF;
+}
+
+.login-container form .group {
+    display: flex;
+align-items: center;
+gap: 50px;
+align-self: stretch;
+}
+
+.login-container form .group .remember-me {
+    width:100%;
+}
+
+.login-container form .group a {
+    color: #57338E;
+
+text-align: right;
+font-family: "Instrument Sans";
+font-size: 15px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+width:100%;
+}
+
+.login-container form input[type="submit"] {
+    display: flex;
+    height: 50px;
+    padding: 10px 15px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border:none;
+    border-radius: 12px;
+background: #57338E;
+color:#fff;
+transition: background 0.2s ease-in-out;
+}
+
+.login-container form input[type="submit"]:hover {
+    background: #5b2ea1;
+    color: #FFF;
+    cursor: pointer;
+}
+
+#switchText {
+    font-size:12px;
+}

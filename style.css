@@ -1,0 +1,1024 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap");
+
+* {
+  font-family: "Instrument Sans";
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+* {
+  margin: 0;
+  font-family: "Instrument Sans";
+}
+
+.app-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  gap: 0px;
+}
+
+.app-container .sidebar {
+  display: flex;
+  width: 350px;
+  height: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  padding: 20px 20px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-shrink: 0;
+  background: #320d6d;
+}
+
+.app-container .sidebar h2 {
+  color: #fff;
+  font-family: "Instrument Sans";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.app-container .sidebar ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 0;
+}
+
+.app-container .sidebar ul li {
+  display: flex;
+  padding: 12px;
+  align-items: center;
+  gap: 12px;
+  border-radius: 16px;
+  transition: background 0.2s ease-in-out;
+}
+
+.app-container .sidebar ul li.active {
+  border-radius: 16px;
+  background: #57338e;
+}
+
+.app-container .sidebar ul li:hover {
+  border-radius: 16px;
+  background: #5b2ea1;
+  color: #fff;
+  cursor: pointer;
+}
+
+.app-container .sidebar ul li .info {
+  display: flex;
+  height: 34px;
+  
+  max-width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0px;
+  flex: 1 0 0;
+  
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-container .sidebar ul li .info h3 {
+  color: #fff;
+  text-align: center;
+  font-family: "Instrument Sans";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-container .sidebar ul li .info p {
+  flex-shrink: 0;
+  align-self: stretch;
+  overflow: hidden;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Instrument Sans";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user {
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.user .avatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50px;
+}
+
+.user .info {
+  display: flex;
+  height: 34px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1 0 0;
+}
+
+.user .info h3 {
+  color: #fff;
+  text-align: center;
+  font-family: "Instrument Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.user .info p {
+  height: 12px;
+  flex-shrink: 0;
+  align-self: stretch;
+  overflow: hidden;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Instrument Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.app-container .messages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  flex: 1 0 0;
+  align-self: stretch;
+  background: #45237a;
+}
+
+.app-container .messages .nav {
+  display: flex;
+  padding: 10px 25px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  border-bottom: 1px solid rgba(252, 252, 252, 0.5);
+  background: #45237a;
+}
+
+.btn {
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background: #5b2ea1;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #320d6d;
+}
+
+.join-vert {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+}
+
+.join-auto-horizontal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+
+.join-horizontal {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  align-self: stretch;
+}
+
+.user-container .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+}
+
+.user-container .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+  flex: 1 0 0;
+}
+
+.user-container .info h3 {
+  color: #fff;
+  text-align: center;
+  font-family: "Instrument Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.user-container .info p,
+.user-container .info h5 {
+  color: #fff;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.chat {
+  display: flex;
+  padding: 40px;
+  height: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  align-self: stretch;
+  overflow-x: hidden;
+}
+
+.bubble-incoming {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5.902px;
+  align-self: stretch;
+}
+
+.bubble-outgoing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5.902px;
+  align-self: stretch;
+}
+
+.bubble-incoming .message,
+.bubble-outgoing .message {
+  max-width: 400px;
+  flex-shrink: 2;
+  /* auto height */
+  height: auto;
+  text-wrap: pretty;
+  display: flex;
+  padding: 15px;
+  align-items: center;
+  gap: 4.918px;
+  border-radius:30px;
+}
+
+.bubble-incoming .message span, .bubble-outgoing .message span {
+  max-width: 400px;
+  text-wrap: pretty;
+  color: #fff;
+}
+
+.bubble-incoming .message span a, .bubble-outgoing .message span a {
+  max-width: 400px;
+  text-wrap: pretty;
+  color:#fff;
+}
+
+.bubble-incoming .message span img, .bubble-outgoing .message span img {
+  width:24px;
+  height:24px;
+}
+
+
+.bubble-incoming img {
+  border-radius:30px;
+  max-width:400px;
+  width:auto;
+  height:auto;
+}
+
+.bubble-outgoing img {
+  border-radius:30px;
+  max-width:400px;
+  width:auto;
+  height:auto;
+}
+
+
+
+.bubble-incoming .message {
+  background: #57338e;
+}
+
+.bubble-outgoing .message {
+  background: #97f;
+}
+
+
+.input {
+  display: flex;
+  padding: 25px 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  align-self: stretch;
+  background: rgba(0, 0, 0, 0.05);
+
+  backdrop-filter: blur(2.5px);
+}
+
+
+.input input:focus {
+  outline: none;
+}
+
+.input .send-btn {
+  display: flex;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  border-radius: 12px;
+  background: #57338e;
+  color: #fff;
+  transition: padding 0.5s ease-in-out;
+}
+
+.input .send-btn:hover {
+padding-left: 20px;
+  padding-right: 20px;
+}
+
+.app-container .sidebar ul li .avatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.app-container .sidebar ul li .avatar .status {
+  position: relative;
+  left: 23px;
+  bottom: 16px;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #320d6d;
+  border-radius: 100px;
+  transition: background 0.2s ease-in-out;
+}
+
+.app-container .sidebar ul li .avatar .status img {
+  width: 12.5px;
+  height: 12.5px;
+}
+.chat {
+  display: flex;
+  padding: 40px;
+  height: 100%;
+  max-height: 100vh;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  align-self: stretch;
+  overflow-y: auto;
+}
+
+.bubble-incoming {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5.902px;
+  align-self: stretch;
+}
+
+.bubble-outgoing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5.902px;
+  align-self: stretch;
+}
+
+.bubble-incoming .message {
+  background: #57338e;
+}
+
+.bubble-outgoing .message {
+  background: #97f;
+}
+
+.input {
+  position: sticky;
+
+  display: flex;
+  padding: 25px 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  align-self: stretch;
+  background: rgba(0, 0, 0, 0.05);
+
+  backdrop-filter: blur(2.5px);
+}
+
+.input input[type="text"] {
+  display: flex;
+  padding: 10px 20px;
+  align-items: center;
+  gap: 10px;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 30px;
+  background: #fff;
+
+  border: 0;
+  color: #808080;
+  font-family: "Instrument Sans";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 24px */
+  letter-spacing: -0.8px;
+}
+
+.input input:focus {
+  outline: none;
+}
+
+.input .send-btn {
+  display: flex;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  border-radius: 50px;
+  background: #57338e;
+
+  color: #fff;
+  transition: background 0.2s ease-in-out;
+}
+
+.input .send-btn:hover {
+  background: #5b2ea1;
+  color: #fff;
+  cursor: pointer;
+}
+
+.user-info {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  align-self: stretch;
+}
+
+@media screen and (max-width: 900px) {
+  .app-container .sidebar {
+    display: none;
+  }
+
+  .messages {
+    width: 100vw;
+  }
+
+  .input {
+    position: sticky;
+
+    display: flex;
+    padding: 25px 20px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    align-self: stretch;
+    background: rgba(0, 0, 0, 0.05);
+
+    backdrop-filter: blur(2.5px);
+  }
+}
+
+
+.charAmount {
+  font-size:10px;
+  color:#fff;
+
+}
+
+.attachmentList {
+  display: flex;
+padding: 10px 20px;
+align-items: center;
+gap: 10px;
+align-self: stretch;
+}
+
+.attachmentList .attachment {
+  width: 100px;
+  height: 100px;
+  border-radius: 30px;
+}
+
+.attachmentList .attachment img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #320D6D; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #280a56; 
+}
+
+.sidebar > .join-vert > input {
+  display: flex;
+  padding: 10px 15px;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 30px;
+border: 2px solid #fcfcfc;
+
+background: #FFF;
+}
+
+
+ul.this-users-thingy-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex: 1 0 0;
+  align-self: stretch;
+  height:auto;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+
+* {
+    font-family: 'Instrument Sans';
+}
+
+body, html {
+    margin:0;
+    padding:0;
+    height: 100%;
+    width: 100%;
+    }
+
+    :root {
+        --color: #320D6D;
+    }
+    
+    * {
+        margin:0;
+        font-family: "Instrument Sans";
+    }
+    
+    .app-container {
+        display: flex;
+        height: 100%;
+        flex-direction: row;
+        gap:0px;
+        
+    overflow-y: hidden;
+    }
+    
+    .app-container .sidebar {
+        display: flex;
+
+        height: 100%;
+        max-height: 100%;
+padding: 51px 36px;
+flex-direction: column;
+justify-content: space-between;
+flex-shrink: 0;
+        background: #320D6D;
+    }
+
+    
+    .app-container .sidebar h2 {
+        color: #FFF;
+        font-family: "Instrument Sans";
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    
+    .app-container .sidebar ul {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding:0;
+        align-self: stretch;
+    }
+    
+    .app-container .sidebar ul li {
+        display: flex;
+        padding: 12px;
+        align-items: center;
+        gap: 12px;
+        align-self: stretch;
+        border-radius: 16px;
+        transition: background 0.2s ease-in-out;
+    
+    }
+
+    .app-container .sidebar ul h3 {
+        color: #FFF;
+        text-align: center;
+        font-family: "Instrument Sans";
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    
+    
+    .app-container .sidebar ul li.active {
+        border-radius: 16px;
+        background: #57338E;
+    }
+
+    
+    .app-container .sidebar ul li:hover {
+        border-radius: 16px;
+        background: #5b2ea1;
+        color: #FFF;
+        cursor: pointer;
+    }
+    
+    .app-container .sidebar ul li .avatar {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+    }
+    
+    .app-container .sidebar ul li .avatar .status {
+        position:relative;
+        left:23px;
+        bottom:14px;
+        width:15px;
+        height:15px;
+        flex-shrink: 0;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        background: #320D6D;
+        border-radius:100px;
+        transition: background 0.2s ease-in-out;
+    }
+
+    .app-container .sidebar ul li .avatar .status img {
+        width:12.5px;
+        height:12.5px;
+    }
+
+    .app-container .sidebar ul li:hover > .app-container .sidebar ul li .avatar .status {
+        background-color: #5b2ea1;
+      }
+      
+    
+    
+    .app-container .sidebar ul li .info {
+        display: flex;
+        height: 34px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 0px;
+        flex: 1 0 0;
+    }
+    
+    .app-container .sidebar ul li .info h3 {
+        color: #FFF;
+        text-align: center;
+        font-family: "Instrument Sans";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+
+    
+    .app-container .sidebar ul li .info p {
+        flex-shrink: 0;
+        align-self: stretch;
+        overflow: hidden;
+        color: #FFF;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-family: "Instrument Sans";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+    .user {
+        display: flex;
+        height: 40px;
+        justify-content: space-between;
+        align-items: center;
+        gap:12px;
+        flex-shrink: 0;
+        align-self: stretch;
+    }
+    
+    .user .avatar {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border-radius:50px;
+    }
+    
+    .user .info {
+        display: flex;
+        height: 34px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 8px;
+        flex: 1 0 0;
+    }
+    
+    .user .info h3 {
+        color: #FFF;
+        text-align: center;
+        font-family: "Instrument Sans";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    
+    .user .info p {
+        height: 12px;
+        flex-shrink: 0;
+        align-self: stretch;
+        overflow: hidden;
+        color: #FFF;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-family: "Instrument Sans";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+    
+    
+    .btn {
+        border:none;
+        border-radius: 12px;
+        display: flex;
+        padding: 12px;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        transition: background 0.2s ease-in-out;
+    
+    }
+
+    .text-btn {
+        transition: background 0.2s ease-in-out;
+
+        border-radius: 12px;
+
+        display: flex;
+padding: 10px;
+flex-direction: column;
+align-items: flex-start;
+gap: 10px;display: flex;
+padding: 5px;
+flex-direction: column;
+align-items: flex-start;
+gap: 10px;
+    }
+
+    .text-btn:hover {
+        background: #5b2ea1;
+        color: #FFF;
+        cursor: pointer;
+    }
+    
+    .btn:hover {
+        background: #5b2ea1;
+        color: #FFF;
+        cursor: pointer;
+    }
+    
+    .btn-primary {
+        background: #57338E;
+    }
+    
+    .join-vert {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        align-self: stretch;
+    }
+    
+    .join-auto-horizontal {
+        display: flex;
+        height: 40px;
+        justify-content: space-between;
+        align-items: flex-start;
+        align-self: stretch;
+        gap:20px;
+    }
+    
+    .join-horizontal {
+      
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        align-self: stretch;
+ width:100%;
+    }
+
+    .user-info {
+        display: flex;
+width: 100%;
+align-items: center;
+gap: 10px;
+width:100%;
+
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 16px;
+        align-self: stretch;
+    }
+
+    @media screen and (max-width: 900px) {
+        .app-container {
+            width:100vw;
+            flex-direction: row;
+            height: 100vh;
+            padding: 0;
+            justify-content: center;
+            background: #320D6D;
+        }
+
+        .app-container.sidebar {
+            display: none;
+        }
+        .app-container .messages {
+            display:none;
+            width:100vw;
+        }
+    }
+
+    
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #320D6D; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #280a56; 
+  }
+
+  .w-fill {
+    display:flex;
+    align-self: stretch;
+    align-items:center;
+    
+flex: 1 0 0;
+    width:auto;
+  }
+
+  .user-info .user-info-details {
+    
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+
+  .user-info > .user-info-details > .custom-status {
+    
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  }
+
+
+  .sidebar > .join-vert > h3 {
+    color: #FFF;
+    text-align: center;
+    font-family: "Instrument Sans";
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+    button.active {
+        background: #57338E;
+    }
+
+    
+    .sidebar .join-auto-horizontal .user-info {
+      background:#320D6D;
+      position:absolute;
+      width:fit-content;
+      max-width:350px;
+      bottom:20px;
+      left:20px;
+  }
