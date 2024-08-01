@@ -94,7 +94,7 @@ $currentUser = $row['username'];
                             if ($friendRow['username'] == $_SESSION["username"]) {
                                 continue;
                             }
-                            if ($_GET["user"] == $friendRow["username"]) {
+                            if ($_GET["user"] == $friendRow["id"]) {
                                 $liArray = [
                                     '<li name="'.$friendRow["username"].'" onclick="window.location.assign(`./messages.php?user=' .
                                     $friendRow["id"] .
@@ -428,6 +428,7 @@ $currentUser = $row['username'];
                     window.location.reload();
                 });
             }
+
 
             function changeCustomStatus() {
                 var customStatus = prompt("Enter your new custom status:");
