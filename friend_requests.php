@@ -12,6 +12,50 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
         <link rel="stylesheet" type="text/css" href="friend_req.css">
         <link rel="icon" type="image/png" href="/Eclipse/icons/eclipseicon.png">
         <title>Home - Eclipse</title>
+        <style>
+ @media screen and (max-width: 900px) {
+        .app-container {
+            width:100vw;
+            flex-direction: row;
+            height: 100vh;
+            padding: 0;
+            justify-content: center;
+            background: #320D6D;
+        }
+
+        .app-container .sidebar {
+            display:none;
+            width:0%;
+        }
+
+
+        .sidebar .join-auto-horizontal:has(.user-info) {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 20px;
+            flex: 1 0 0;
+            align-self: stretch;
+        }
+        .sidebar .join-auto-horizontal .user-info {
+            position:static;
+            background:#320D6D;
+            width:100%;
+            display:flex;
+            justify-content: space-between;
+align-items: center;
+        }
+
+        .sidebar ul {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+            align-self: stretch;
+        }
+    }
+
+            </style>
     </head>
     <body>
         <div class="app-container">
@@ -136,8 +180,12 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
                 </div>
             </div>
 </div>
-            <div class="messages">
+            <div class="messages"><div class="header">
+            <button class="btn text mobile-back" onclick="window.history.back()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+<path d="M7 13L1 7M1 7L7 1M1 7H13C14.5913 7 16.1174 7.63214 17.2426 8.75736C18.3679 9.88258 19 11.4087 19 13C19 14.5913 18.3679 16.1174 17.2426 17.2426C16.1174 18.3679 14.5913 19 13 19H10" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></button>
                 <h2>Message Requests</h2>
+</div>
                 <ul>
                     <?php
 
@@ -181,8 +229,8 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
                                     $row2 = $result2->fetch_assoc();
                                     echo '<li>
                                     <span class="username">'.$row2["username"].' (pending)</span>
-                                    <button onclick="acceptUser(`'.$row["sender"].'`)">Accept</button>
-                                    <button onclick="declineUser(`'.$row["sender"].'`)">Decline</button>
+                                    <button class="options-btn btn-primary" onclick="acceptUser(`'.$row["sender"].'`)">Accept</button>
+                                    <button class="options-btn btn-secondary" onclick="declineUser(`'.$row["sender"].'`)">Decline</button>
                                 </li>';
                                 }
                             }

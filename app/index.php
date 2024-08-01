@@ -38,7 +38,7 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
                     <ul>
             <h3>Your Friends</h3>
                         <?php 
-
+                        
                         // connect to Eclipse database
                         $conn = new mysqli("localhost", "root", "", "eclipse");
                         if ($conn->connect_error) {

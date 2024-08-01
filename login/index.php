@@ -40,7 +40,7 @@ if ($_SESSION['logged_in'] == true) {
                         <label id="usernameLabel" style="display:none;">Username</label>
                         <input type="email" id="email" name="email" placeholder="Email">
                         <input type="text" id="username" name="username" placeholder="Username" style="display: none;">
-                        <a onclick="toggleInput()" id="switchText" style="user-select:none;">or sign in with username</a>
+                        <a onclick="toggleInput()" id="switchText" style="user-select:none;">or sign in with username (doesn't work)</a>
 
                         <label>Password</label>
                         <input type="password" name="password" placeholder="Password">

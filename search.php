@@ -12,6 +12,50 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
         <link rel="stylesheet" type="text/css" href="friend_req.css">
         <link rel="icon" type="image/png" href="/Eclipse/icons/eclipseicon.png">
         <title>Home - Eclipse</title>
+        <style>
+            @media screen and (max-width: 900px) {
+        .app-container {
+            width:100vw;
+            flex-direction: row;
+            height: 100vh;
+            padding: 0;
+            justify-content: center;
+            background: #320D6D;
+        }
+
+        .app-container .sidebar {
+            display:none;
+            width:0%;
+        }
+
+
+        .sidebar .join-auto-horizontal:has(.user-info) {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 20px;
+            flex: 1 0 0;
+            align-self: stretch;
+        }
+        .sidebar .join-auto-horizontal .user-info {
+            position:static;
+            background:#320D6D;
+            width:100%;
+            display:flex;
+            justify-content: space-between;
+align-items: center;
+        }
+
+        .sidebar ul {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+            align-self: stretch;
+        }
+    }
+
+        </style>
     </head>
     <body>
         <div class="app-container">
@@ -35,7 +79,7 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
 </svg></button>
             
 </div>
-                    <ul>
+<ul>
             <h3>Your Friends</h3>
                         <?php 
 
@@ -53,15 +97,15 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
                         // display all friends
                         $friends = json_decode($row["friends"]);
                         foreach ($friends as $friend) {
-                            $sql = "SELECT * FROM users WHERE username = '$friend'";
+                            $sql = "SELECT * FROM users WHERE id = '$friend'";
                             $friendResult = $conn->query($sql);
                             $friendRow = $friendResult->fetch_assoc();
-                            if ($friendRow['username'] == $_SESSION["username"]) {
+                            if ($friendRow['id'] == $_SESSION["id"]) {
                                 continue;
                             }
                             $liArray = [
-                                '<li onclick="window.location.assign(`messages.php?user=' .
-                                $friendRow["username"] .
+                                '<li onclick="window.location.assign(`./messages.php?user=' .
+                                $friendRow["id"] .
                                 '`)">',
                                 '<div class="avatar">',
                                 '<img src="' .
@@ -85,7 +129,6 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
                         }
                         ?>
                     </ul>
-                    
                        
                     <div class="join-auto-horizontal">
                     <div class="user-info">
@@ -136,8 +179,81 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
             </div>
 </div>
             <div class="messages">
+                <div class="header">
+            <button class="btn text mobile-back" onclick="window.history.back()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+<path d="M7 13L1 7M1 7L7 1M1 7H13C14.5913 7 16.1174 7.63214 17.2426 8.75736C18.3679 9.88258 19 11.4087 19 13C19 14.5913 18.3679 16.1174 17.2426 17.2426C16.1174 18.3679 14.5913 19 13 19H10" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></button>
                 <h2>Quick Search</h2>
-                <input type="text" id="searchInput" onkeyup="searchUsers()" placeholder="Search for friends, messages, group DM's and much more...">
+</div>
+                <?php
+                if (empty($_GET['text'])) {
+                echo '<input type="text" id="searchInput" placeholder="Search for friends, messages, group DM\'s and much more...">';
+                } else {
+                echo '<input type="text" id="searchInput" placeholder="Search for friends, messages, group DM\'s and much more..." value="'.$_GET['text'].'">';
+                }
+                ?>
+                <div id="searchResults">
+                <?php 
+
+                // check if the text url param is empty
+                if (!empty($_GET['text'])) {
+                    $searchText = $_GET['text'];
+                    // connect to the database
+                    $conn = new mysqli("localhost", "root", "", "eclipse");
+                    // check connection
+                    if ($conn->connect_error) {
+                        die("Connection failed: ". $conn->connect_error);
+                    }
+
+                    // search for users based on the input text
+                    $sql = "SELECT * FROM users WHERE username LIKE '%$searchText%'";
+                    $result = $conn->query($sql);
+                    
+                    echo "<h2>Users</h2>";
+                    if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            // get current users details
+                            $sql = "SELECT * FROM users WHERE id = ".$_SESSION['id'];
+                            $currentUserResult = $conn->query($sql);
+                            $currentUserRow = $currentUserResult->fetch_assoc();
+                            $decodedCurrentFriendList = json_decode($currentUserRow['friends']);
+                            if (in_array($row['id'], $decodedCurrentFriendList)) {
+                            if ($row['id']!= $_SESSION["id"]) {
+                            echo "<div class='search-result' onclick='window.location.assign(`messages.php?user=".$row['id']."`)'>".$row['username']."</div>";
+                            }
+                        }
+                        }
+                    } else {
+                        echo "<div class='search-result'>No users found.</div>";
+                    }
+
+                    // search for messages based on the input text
+                    $sql = "SELECT * FROM messages WHERE content LIKE '%$searchText%' AND sender IN (SELECT id FROM users WHERE recipient = '".$_SESSION["id"]."' OR sender = '".$_SESSION["id"]."')";
+                    $result = $conn->query($sql);
+                    
+
+                    echo "<h2>Messages</h2>";
+                    if ($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) {
+                            $senderResult = $conn->query("SELECT * FROM users WHERE id = ".$row['sender']);
+                            $senderRow = $senderResult->fetch_assoc();
+                            if ($row['sender'] == $_SESSION["id"]) {
+                                // get the recipient's details
+                                $recipientResult = $conn->query("SELECT * FROM users WHERE id = ".$row['recipient']);
+                                $recipientRow = $recipientResult->fetch_assoc();
+
+                                echo "<div class='search-result' onclick='window.location.assign(`messages.php?user=".$recipientRow['id']."#".$row['id']."`)'>".$senderRow['username'].": ".$row['content']."</div>";
+                            } else {
+                                echo "<div class='search-result' onclick='window.location.assign(`messages.php?user=".$senderRow['id']."#".$row['id']."`)'>".$senderRow['username'].": ".$row['content']."</div>";
+                            }
+                        }
+                    } else {
+                        echo "<div class='search-result'>No messages found.</div>";
+                    }
+
+                }
+                ?>
+                </div>
             </div>
         </div>
         <script
@@ -145,6 +261,15 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
   crossorigin="anonymous"></script>
         <script>
+            const input = document.getElementById('searchInput');
+
+            input.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    window.location.assign(`search.php?text=${input.value}`);
+                }
+            });
+
+
             function askToAddFriend() {
                 var requestedUser = prompt("Enter the username of the person you want to add:");
 

@@ -197,6 +197,9 @@ $currentUser = $row['username'];
 </div>
             <div class="messages">
             <div class="nav">
+                <button class="btn text mobile-back" onclick="window.history.back()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+<path d="M7 13L1 7M1 7L7 1M1 7H13C14.5913 7 16.1174 7.63214 17.2426 8.75736C18.3679 9.88258 19 11.4087 19 13C19 14.5913 18.3679 16.1174 17.2426 17.2426C16.1174 18.3679 14.5913 19 13 19H10" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></button>
                 <div class="user">
                     <?php
 
@@ -209,18 +212,25 @@ $currentUser = $row['username'];
                     $sql = "SELECT * FROM users WHERE id = '".$_GET["user"]."'";
                     $result = mysqli_query($conn, $sql);
                     $row = mysqli_fetch_assoc($result);
-
-                    // display the user's profile picture and name
-                    echo '<img href="'. $row['avatar'] .'" width="40" height="40"/><div class="info"><h3>'.$row['username'].'</h3><p>';
-                    if ($row['custon_status']!= null) {
-                        echo $row['custon_status'];
-                    } else {
-                        echo $row['status'];
-                    }
-                    echo '</p></div></li></div>';
-                
                 ?>
+                <img src="<?php echo $row['avatar'] ?>" width="40" height="40" />
+                <div class="info">
+                    <h3><?php echo $row['username'];?></h3>
+                    <p><?php if ($row['custom_status'] == null) { echo $row['status']; } else { echo $row['custom_status']; } ?></p>
+                </div>
             </div>
+            <div class="btn-group">
+            <button class="btn btn-primary" onclick="callUser()"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0.5 3.5C0.5 2.70435 0.816071 1.94129 1.37868 1.37868C1.94129 0.816071 2.70435 0.5 3.5 0.5H4.872C5.732 0.5 6.482 1.086 6.691 1.92L7.796 6.343C7.88554 6.701 7.86746 7.07746 7.74401 7.42522C7.62055 7.77299 7.39723 8.07659 7.102 8.298L5.809 9.268C5.674 9.369 5.645 9.517 5.683 9.62C6.24738 11.1549 7.1386 12.5487 8.29495 13.7051C9.4513 14.8614 10.8451 15.7526 12.38 16.317C12.483 16.355 12.63 16.326 12.732 16.191L13.702 14.898C13.9234 14.6028 14.227 14.3794 14.5748 14.256C14.9225 14.1325 15.299 14.1145 15.657 14.204L20.08 15.309C20.914 15.518 21.5 16.268 21.5 17.129V18.5C21.5 19.2956 21.1839 20.0587 20.6213 20.6213C20.0587 21.1839 19.2956 21.5 18.5 21.5H16.25C7.552 21.5 0.5 14.448 0.5 5.75V3.5Z" fill="white"/>
+</svg></button>
+<button class="btn btn-primary" onclick="openPopup('user')">
+<svg xmlns="http://www.w3.org/2000/svg" width="4" height="16" viewBox="0 0 4 16" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0.5 2C0.5 1.60218 0.658035 1.22064 0.93934 0.93934C1.22064 0.658035 1.60218 0.5 2 0.5C2.39782 0.5 2.77936 0.658035 3.06066 0.93934C3.34196 1.22064 3.5 1.60218 3.5 2C3.5 2.39782 3.34196 2.77936 3.06066 3.06066C2.77936 3.34196 2.39782 3.5 2 3.5C1.60218 3.5 1.22064 3.34196 0.93934 3.06066C0.658035 2.77936 0.5 2.39782 0.5 2ZM0.5 8C0.5 7.60218 0.658035 7.22064 0.93934 6.93934C1.22064 6.65804 1.60218 6.5 2 6.5C2.39782 6.5 2.77936 6.65804 3.06066 6.93934C3.34196 7.22064 3.5 7.60218 3.5 8C3.5 8.39782 3.34196 8.77936 3.06066 9.06066C2.77936 9.34196 2.39782 9.5 2 9.5C1.60218 9.5 1.22064 9.34196 0.93934 9.06066C0.658035 8.77936 0.5 8.39782 0.5 8ZM0.5 14C0.5 13.6022 0.658035 13.2206 0.93934 12.9393C1.22064 12.658 1.60218 12.5 2 12.5C2.39782 12.5 2.77936 12.658 3.06066 12.9393C3.34196 13.2206 3.5 13.6022 3.5 14C3.5 14.3978 3.34196 14.7794 3.06066 15.0607C2.77936 15.342 2.39782 15.5 2 15.5C1.60218 15.5 1.22064 15.342 0.93934 15.0607C0.658035 14.7794 0.5 14.3978 0.5 14Z" fill="white"/>
+</svg>
+                </button>
+                </div>
+         
+                </div>
         <div class="chat">
         <?php
 
@@ -252,6 +262,7 @@ $currentUser = $row['username'];
                 while ($row = mysqli_fetch_assoc($result)) {
                     $message = $row["content"];
                     $sender = $row["sender"];
+                    $id = $row['id'];
                     $timestamp = $row["timestamp"];
                     $attachments = json_decode($row["attachments"]);
                     // turn unix timestamp to human-readable format
@@ -285,7 +296,7 @@ $currentUser = $row['username'];
     
 
                     if ($sender !== $sender_id) {
-                        echo "<div class='bubble-incoming'>";
+                        echo "<div class='bubble-incoming' id='".$id."'>";
                         echo "<div class='message'><span onmouseover='this.innerText = \"".$message." (".$timestamp.")\"' onmouseout='this.innerText = \"".$message."\"'>$message</span></div>";
                         echo "</div>";
 
@@ -301,7 +312,7 @@ $currentUser = $row['username'];
                         }
                     }
                     } else {
-                        echo "<div class='bubble-outgoing'>";
+                        echo "<div class='bubble-outgoing' id='".$id."'>";
                         echo "<div class='message'><span onmouseover='this.innerText = \"".$message." (".$timestamp.")\"' onmouseout='this.innerText = \"".$message."\"'>$message</span></div>";
                         echo "</div>";
 
@@ -345,6 +356,15 @@ $currentUser = $row['username'];
             $(document).on("blur", "input", function() {
                 $.post('./updateTypingStatus.php', { id: "<?php echo $_SESSION["id"];?>", typing: null });
             });
+
+            // get id from url param (ex. #14)
+            var msgId = window.location.hash.substr(1);
+            if (msgId) {
+                $(".chat").animate({ scrollTop: $("#" + msgId).offset().top - 80 }, 500);
+                $("#" + msgId).css("background-color", "#320d6d");
+                setTimeout(function() { $("#" + msgId).css("background-color", "") }, 3000);
+            }
+
 
 
             let messageAttachments = [];
@@ -487,6 +507,7 @@ $currentUser = $row['username'];
                     { name: ':grinning:', unicode: '😁' },
                     { name: ':laughing:', unicode: '😂' },
                     { name: ':shocked_face:', unicode: '😲'},
+                    { name: ':sob:', unicode: '😭'},
                     { name: ':joy:', unicode: '😂' },
                     { name: ':smiling_imp:', unicode: '😈' },
                     { name: ':blushing_face:', unicode: '😊' },
@@ -515,6 +536,7 @@ $currentUser = $row['username'];
                         // otherwise, replace the tag with an empty string
                         return "";
                     });
+
 
                 $.post('./updateTypingStatus.php', { id: "<?php echo $_SESSION["id"];?>", typing: null });
 
@@ -596,6 +618,9 @@ $currentUser = $row['username'];
                    // get the current timestamp
                     var currentTimestamp = Math.floor(new Date().getTime() / 1000);
 
+                    
+
+
 var messageTimestamp = parseInt(msg.timestamp);
 
 // calculate the time difference between the current timestamp and the message timestamp
@@ -623,11 +648,7 @@ if (timeDifference <= 60) {    // if message is within the last minute
                     if (msg.sender == '<?php echo $_SESSION["id"];?>') {
 
 
-                    $(".chat").append(`
-                    <div class='bubble-outgoing'>
-                    <div class='message'><span onmouseover="this.innerText = '${msg.content} (${timestamp})'; this.innerHTML = this.innerHTML" onmouseout="this.innerText = '${msg.content}'">${msg.content}</span></div>
-                    </div>
-                    `)
+                    $(".chat").append(' <div class="bubble-outgoing" id="' + msg.id + '"> <div class="message"><span onmouseover="this.innerText = `' + msg.content + '` ('+ timestamp +')`; this.innerHTML = this.innerHTML" onmouseout="this.innerText = `' + msg.content + '`">' + msg.content + '</span></div> </div>');
 
                   
                     if (!msg.attachments == null) {
@@ -642,7 +663,7 @@ if (timeDifference <= 60) {    // if message is within the last minute
                 }
                     } else {
                         $(".chat").append(`
-                    <div class='bubble-incoming'>
+                    <div class='bubble-incoming' id='${msg.id}'>
                     <div class='message'><span onmouseover="this.innerText = '${msg.content} (${timestamp})'; this.innerHTML = this.innerHTML" onmouseout="this.innerText = '${msg.content}'">${msg.content}</span></div>
                     </div>
                     `)
