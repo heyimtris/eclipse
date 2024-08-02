@@ -523,10 +523,9 @@ padding-left: 20px;
 
 .user-info {
   display: flex;
-  width: 100%;
+  width: 350px;
   align-items: center;
   gap: 10px;
-  width: 100%;
 }
 
 .button-group {
@@ -665,7 +664,7 @@ body, html {
     
     .app-container .sidebar {
         display: flex;
-
+width:350px;
         height: 100%;
         max-height: 100%;
 padding: 51px 36px;
@@ -906,14 +905,14 @@ flex: 1 0 0;
 
   .user-info .user-info-details {
     
-  max-width: 100%;
+  max-width: 350px;
   overflow: hidden;
   text-overflow: ellipsis;
   }
 
   .user-info > .user-info-details > .custom-status {
     
-  max-width: 100%;
+  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   text-wrap: nowrap;
@@ -938,10 +937,10 @@ flex: 1 0 0;
     .sidebar .join-auto-horizontal .user-info {
       background:#320D6D;
       position:absolute;
-      width:fit-content;
-      max-width:350px;
-      bottom:20px;
-      left:20px;
+      max-width:300px;
+      padding-top:10px;
+      bottom:10px;
+      left:25px;
   }
 
 
@@ -1034,4 +1033,100 @@ flex: 1 0 0;
     gap:20px;
     align-items: center;
     justify-content: space-between;
+}
+
+
+
+.popup-container {
+  backdrop-filter: blur(0px);
+
+  transition: backdrop-filter 0.2s;
+width:100vw;
+height:100vh;
+position:absolute;
+visibility:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+top:0;
+left:0;
+}
+
+.popup-container.show {
+  backdrop-filter: blur(2px) brightness(50%);
+}
+
+.popup-container .popup {
+display:flex;
+z-index:999;
+background: #45237A;
+max-height:80vh;
+display:flex;
+padding:26px;
+border-radius:20px;
+flex-direction:column;
+gap:15px;
+visibility: hidden;
+}
+
+.user-popup {
+width:50vw;
+}
+
+.user-popup > .user-join {
+display:flex;
+flex-direction:row;
+gap:15px;
+align-items:center;
+}
+
+p[id='bio'] {
+font-size:12px;
+}
+
+.bio-stuffs {
+display:flex;
+flex-direction:column;
+gap:5px;
+}
+
+.user-popup > .user-join > img {
+border-radius:40px;
+}
+
+.user-popup > .join-hori {
+display:flex;
+flex-direction:row;
+gap:15px;
+align-self:stretch;
+width:100%;
+}
+
+.user-popup > .join-hori > input {
+padding:5px;
+padding-left:15px;
+padding-right:15px;
+border-radius:12px;
+border:none;
+width:100%;
+}
+
+.user-popup > * {
+  color:#fff;
+}
+
+.app-container .sidebar ul li {
+  padding: 5px 10px;
+}
+
+
+.app-container .sidebar ul {
+  max-width:350px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding:0;
+  align-self: stretch;
+  max-height:90vh;
 }

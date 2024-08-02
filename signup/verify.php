@@ -29,15 +29,18 @@ if ($result->num_rows === 0) {
     die("Invalid/Expired verification code.");
 }
 
+if ($result->fetch_assoc()['email']!== $_SESSION['email']) {
+    die("Verification code does not match the user's email.");
+}
+
 // mark verification code as inactive
 
-$sql = "UPDATE verification_codes SET active = 0 WHERE code = '$verificationCode'";
-
+$sql = "DELETE FROM verification_codes WHERE code = '$verificationCode' LIMIT 1";
 $conn->query($sql);
 
 // update user's status to active
 
-$sql = "UPDATE users SET active = 1 WHERE username = '$user'";
+$sql = "UPDATE users SET verified = 1 WHERE username = '$user'";
 
 $conn->query($sql);
 

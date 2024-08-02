@@ -10,7 +10,7 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <link rel="icon" type="image/png" href="/Eclipse/icons/eclipseicon.png">
+        <link rel="icon" type="image/png" href="/Eclipse/appicons/eclipseicon.png">
         <title>Home - Eclipse</title>
     </head>
     <body>
@@ -67,7 +67,7 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
                                 '<img src="' .
                                 $friendRow["avatar"] .
                                 '" width="40" height="40" style="border-radius:50px;"/>',
-                                '<div class="status"><img src="../icons/' .
+                                '<div class="status"><img src="/appicons/' .
                                 $friendRow["status"] .
                                 '.png" width="20" height="20"/>',
                                 "</div></div>",
@@ -114,7 +114,7 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
 
     } 
     ?>
-    <p style="color:white; display:flex;flex-direction:row;gap:5px; align-items:center;" onclick="changeStatus()"><img src="../icons/<?php echo $userData['status'] ?>.png" width="15" height="15"> <?php
+    <p style="color:white; display:flex;flex-direction:row;gap:5px; align-items:center;" onclick="changeStatus()"><img src="/appicons/<?php echo $userData['status'] ?>.png" width="15" height="15"> <?php
     $statuses = array("online" => "Online", "away" => "Away", "dnd" => "Do Not Disturb", "offline" => "Offline");
     echo $statuses[$userData["status"]];
     ?></p>
@@ -136,7 +136,7 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
             </div>
 </div>
             <div class="messages">
-               <img src="../icons/phone.png" alt="Phone Icon" width="80">
+               <img src="../appicons/phone.png" alt="Phone Icon" width="80">
                 <h2>no conversations selected</h2>
             </div>
         </div>
@@ -210,5 +210,6 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
 
 
         </script>
+        <script src="../main.js"></script>
     </body>
 </html>

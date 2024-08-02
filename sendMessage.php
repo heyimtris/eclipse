@@ -9,6 +9,15 @@ if ($conn->connect_error) {
     die("Connection failed: ". $conn->connect_error);
 }
 
+// if user isnt logged in, redirect to login page
+session_start();
+
+
+if (!isset($_SESSION['username'])) {
+    die("You must be logged in to send messages!");
+    exit();
+}
+
 // get url params
 
 $sender = $_POST['sender'];
@@ -16,6 +25,12 @@ $receiver = $_POST['receiver'];
 $message = $_POST['message'];
 $attachments = $_POST['attachments'];
 $attachments = json_encode($attachments);
+
+// check if sender or receiver is session username, so that you can't send messages to yourself
+if ($sender !== $_SESSION['id']) {
+die("You can't send messages as another person!");
+}
+
 
 // post the message to the database
 

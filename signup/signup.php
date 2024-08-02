@@ -42,5 +42,5 @@ $_SESSION['email'] = $email;
 
 $conn->close();
 
-header("Location:../login");  // Redirect to email confirmation page after registration successful.
+header("Location: confirmEmail.php");  // Redirect to email confirmation page after registration successful.
 ?>

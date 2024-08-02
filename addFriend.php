@@ -69,7 +69,7 @@ $sql = "INSERT INTO friend_requests (sender, recipient) VALUES ('$loggedInUser',
 if ($conn->query($sql) === TRUE) {
     echo "Friend request sent successfully";
 } else {
-    echo "Error: ". $sql. "<br>". $conn->error;
+    // echo "Error: ". $sql. "<br>". $conn->error;
 }
 
 // close the database connection

@@ -505,3 +505,12 @@ flex: 1 0 0;
     align-items: center;
     justify-content: space-between;
 }
+
+
+.messages > ul {
+    height:100%;
+}
+
+.app-container .sidebar ul li {
+    padding: 5px 10px;
+}

@@ -21,7 +21,7 @@ if ($_SESSION['logged_in'] == true) {
     <body>
         <div class="app-container">
             <div class="login-container">
-                    <img src="/Eclipse/icons/eclipseicon.png" width="40" alt="Eclipse Logo">
+                    <img src="/appicons/eclipseicon.png" width="40" alt="Eclipse Logo">
                     <div class="header-group">
                     <h1>Welcome Back!</h1>
                     <h3>Discover the endless possibilities of Eclipse when you log in.</h3>

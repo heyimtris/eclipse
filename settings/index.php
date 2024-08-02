@@ -11,12 +11,12 @@ if (!$_SESSION['username']) {
     <head>
         <title>Settings - Eclipse</title>
         <link rel="stylesheet" type="text/css" href="style.css">
-        <link rel="icon" type="image/png" href="/Eclipse/icons/eclipseicon.png">
+        <link rel="icon" type="image/png" href="/Eclipse/appicons/eclipseicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="eclipse is a secure & private messaging platform for all. it connects all your friends, family, clubs — everyone’s here." />
         <meta name="keywords" content="eclipse, messaging, chat, group, friends, family, clubs" />
         <meta name="author" content="eclipse team" />
-        <meta name="image" content="/Eclipse/icons/eclipseicon.png" />
+        <meta name="image" content="/Eclipse/appicons/eclipseicon.png" />
     </head>
     <body>
         <div class="app-container">
