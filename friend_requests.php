@@ -4,6 +4,27 @@
 if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
     header("Location:/login/index.php");  // Redirect to login page
 }
+
+$conn = new mysqli("localhost", "root", "", "eclipse");
+
+if ($conn->connect_error) {
+    die("Connection failed: ". $conn->connect_error);
+}
+
+$sql = "SELECT * FROM users WHERE id = '".$_SESSION['id']."'";
+
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    die("Error: ". mysqli_error($conn));
+}
+
+$thisUser = mysqli_fetch_assoc($result);
+
+if ($thisUser['verified'] === "0") {
+    $_SESSION['email'] = $thisUser['email']; // Store email in session variable for use in verification page
+    header("Location: /signup/confirmEmail.php"); // Redirect to verify page
+    }
 ?>
 
 <html>

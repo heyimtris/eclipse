@@ -514,3 +514,19 @@ flex: 1 0 0;
 .app-container .sidebar ul li {
     padding: 5px 10px;
 }
+
+.app-container .sidebar {
+    display: flex;
+    width: 350px;
+    height: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    padding: 20px 20px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background: #320d6d;
+  }
+  

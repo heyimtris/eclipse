@@ -77,7 +77,7 @@ $appPassword = $_ENV['password'];
 
 try {
     // Server settings
-    $mail->SMTPDebug = 2;                                       // Enable verbose debug output
+    $mail->SMTPDebug = 0;                                       // Enable verbose debug output
     $mail->isSMTP();                                            // Set mailer to use SMTP
     $mail->Host       = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
@@ -96,6 +96,7 @@ try {
     $mail->Body    = $message;
 
     $mail->send();
+    echo '<img src="/appicons/eclipseicon.png" alt="Eclipse" style="width:40px;height:40;"/>';
     echo 'Reset link has been sent to your email address. Please check your inbox. If you did not receive it, please check your spam folder.';
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

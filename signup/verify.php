@@ -28,11 +28,6 @@ $result = $conn->query($sql);
 if ($result->num_rows === 0) {
     die("Invalid/Expired verification code.");
 }
-
-if ($result->fetch_assoc()['email']!== $_SESSION['email']) {
-    die("Verification code does not match the user's email.");
-}
-
 // mark verification code as inactive
 
 $sql = "DELETE FROM verification_codes WHERE code = '$verificationCode' LIMIT 1";

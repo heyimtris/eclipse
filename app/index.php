@@ -4,6 +4,30 @@
 if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
     header("Location:../login/index.php");  // Redirect to login page
 }
+
+  // connect to Eclipse database
+  $conn = new mysqli("localhost", "root", "", "eclipse");
+  if ($conn->connect_error) {
+      die("Connection failed: ". $conn->connect_error);
+  }
+
+  $sql = "SELECT * FROM users WHERE id = '".$_SESSION['id']."'";
+
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+die("Error: ". mysqli_error($conn));
+}
+
+$thisUser = mysqli_fetch_assoc($result);
+
+if ($thisUser['verified'] === "0") {
+$_SESSION['email'] = $thisUser['email']; // Store email in session variable for use in verification page
+header("Location: /signup/confirmEmail.php"); // Redirect to verify page
+}
+
+
+
 ?>
 
 <html>
@@ -38,12 +62,7 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
                     <ul>
             <h3>Your Friends</h3>
                         <?php 
-                        
-                        // connect to Eclipse database
-                        $conn = new mysqli("localhost", "root", "", "eclipse");
-                        if ($conn->connect_error) {
-                            die("Connection failed: ". $conn->connect_error);
-                        }
+                    
 
                         // get all friends from database
                         $sql = "SELECT * FROM users WHERE username = '". $_SESSION['username']. "'";
@@ -140,10 +159,15 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
                 <h2>no conversations selected</h2>
             </div>
         </div>
+        <div class="popup-container">
+
+</div>
         <script
   src="https://code.jquery.com/jquery-3.7.1.min.js"
   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
   crossorigin="anonymous"></script>
+  <script src="../main.js"></script>
+
         <script>
             function askToAddFriend() {
                 var requestedUser = prompt("Enter the username of the person you want to add:");
@@ -174,8 +198,8 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
                 });
             }
 
-            function changeStatus() {
-                var status = prompt("Enter your new status (online, away, offline, dnd):");
+            async function changeStatus() {
+                var status = await eclipsePrompt("Change Status", "Choose your status (ex. online, away, offline, dnd)");
                 if (status === null || status === "") {
                     alert("You must enter a status.");
                     return;
@@ -188,13 +212,23 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
                     return;
                 }
 
-                $.post('../changeStatus.php', { id: "<?php echo $_SESSION["id"];?>", status }, function(result) { 
-                    alert(result);
+                $.post('/changeStatus.php', { id: "<?php echo $_SESSION["id"];?>", status }, function(result) { 
+                    let upperCaseStatus;
+                    if (status === "online" || status === "away" || status === "offline") {
+                        upperCaseStatus = status.charAt(0).toUpperCase() + status.slice(1);
+                    } else {
+                        upperCaseStatus = "Do Not Disturb";
+                    }
+                    document.querySelector('#status').innerHTML = `
+                      <p id="status" style="color:white; display:flex;flex-direction:row;gap:5px; align-items:center;" onclick="changeStatus()"><img src="/appicons/` + status + `.png" width="15" height="15">` + upperCaseStatus + `</p>
+                    `
+
                 });
             }
 
-            function changeCustomStatus() {
-                var customStatus = prompt("Enter your new custom status:");
+
+            async function changeCustomStatus() {
+                var customStatus = await eclipsePrompt("Change Custom Status", "Enter your custom status (ex. 'I am working on a new project')");
                 if (customStatus === null || customStatus === "") {
                     alert("You must enter a custom status.");
                     return;
@@ -203,13 +237,12 @@ if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
                 // replace ' with &#39; in the custom status to avoid SQL injection
                 customStatus = customStatus.replace(/'/g, "&#39;");
 
-                $.post('../changeCustomStatus.php', { id: "<?php echo $_SESSION["id"];?>", customStatus }, function(result) { 
-                    alert(result);
+                $.post('changeCustomStatus.php', { id: "<?php echo $_SESSION["id"];?>", customStatus }, function(result) { 
+                   document.querySelector('#customStatus').innerText = customStatus;
                 });
             }
 
 
-        </script>
-        <script src="../main.js"></script>
-    </body>
+
+        </script>    </body>
 </html>
