@@ -148,14 +148,14 @@ button svg * {
     -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
   background-color:#000;
-  width:400px;
-  min-height:100px;
+  width:300px;
+  min-height:200px;
   height:auto;
   }
   
   .video-container .profile-pic {
  position: absolute;
-  width:400px;
+  width:300px;
   height:200px;
   display:flex;
   justify-content:center;
@@ -177,4 +177,8 @@ button svg * {
   background-color:#000;
   flex-direction:column;
   gap:20px;
+}
+
+* {
+  overflow:hidden;
 }

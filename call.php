@@ -53,12 +53,31 @@ if ($otherUserData['calling'] !== $currentUser['id']) {
     echo "
     <script>
     alert('User is already calling someone else!');
-    window.location.href = '/app'; // Redirect to home page
+    window.close();
     </script>
     ";
 }
 }
 
+?>
+  <?php
+
+// set calling to the username of the other user
+$sql = "SELECT * FROM users WHERE id = '".$_SESSION['id']."'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+$row = $result->fetch_assoc();
+    $row['calling'] = $otherUserData['id'];
+    $sql = "UPDATE users SET calling = '". $row['calling']. "' WHERE id = '".$_SESSION['id']."'";
+    $conn->query($sql);
+    if (!$conn->query($sql) === TRUE) {
+        die("Error updating calling status: ". $conn->error);
+    }
+} else {
+    echo "User not found.";
+    return;
+}
 ?>
 <html>
     <head>
@@ -106,6 +125,7 @@ if ($otherUserData['calling'] !== $currentUser['id']) {
   <p>Note, if your here for longer than 15 seconds, <?php echo $otherUserData['username']; ?> may have left the call.</p>
 </div>
         <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script>
             var peer = new Peer('<?php echo $peerID; ?>');
             var localStream;
@@ -120,31 +140,26 @@ peer.on('open', function() {
                 console.error('PeerJS error:', err);
             });
 
+
             navigator.mediaDevices.getUserMedia({video: true, audio: true})
             .then(function(stream) {
                 localStream = stream;
                 var yourVideo = document.getElementById('yourCamera');
                 yourVideo.volume = 0;
                 yourVideo.srcObject = stream;
+                
+            <?php
+            if ($_GET['video'] == 'false') {
+                echo "toggleCam()";
+            }
+            ?>
 
-                toggleCam();
 
                 var call = peer.call('<?php echo $otherUser;?>', stream, {
                     metadata: {
                         id: '<?php echo $_SESSION['id']; ?>'
                     }
                 });
-
-                <?php
-
-                // set calling to the username of the other user
-                $query = "UPDATE users SET calling = '".$otherUserData['id']."' WHERE id = '".$_SESSION['id']."'";
-                $result = $conn->query($query);
-                if (!$result === TRUE) {
-                    echo "Error updating calling status: ". $conn->error;
-                }
-
-                ?>
                 call.on('stream', function(remoteStream) {
                     var theirVideo = document.getElementById('theirCamera');
                     theirVideo.parentElement.style.visibility = "visible";
@@ -178,6 +193,13 @@ peer.on('open', function() {
                 call.on('error', function(err) {
                     console.error('Call error:', err);
                 });
+
+                
+            // detect when peer connection is lost
+           call.on('close', function() {
+                var disconnectMessage = document.querySelector('#disconnectMessage');
+                disconnectMessage.style.display = "flex";
+            });
             });
 
             function toggleMic(button) {
@@ -208,42 +230,35 @@ peer.on('open', function() {
                 });
                 peer.destroy();
 
-                <?php 
-
-                // set calling to null
-                $sql = "UPDATE users SET calling = NULL WHERE id = '".$currentUser['id']."'";
-                mysqli_query($conn, $sql);
-                $conn->close();
-                ?>
+                $.get('/leaveCall.php?id=<?php echo $_SESSION['id']; ?>', function(data) {
+                    if (data.error) {
+                        alert(data);
+                    }
 
                 // close tab
                 window.close();
+                });
             }
-
-            // detect when peer connection is lost
-           call.on('close', function() {
-                var disconnectMessage = document.querySelector('#disconnectMessage');
-                disconnectMessage.style.display = "flex";
-            });
 
             setInterval(function() {
            // check if their stream is muted
 const video = document.getElementById('theirCamera');
-if (video.srcObject) {
-    const audioTracks = video.srcObject.getAudioTracks();
-    if (audioTracks.length > 0 && audioTracks[0].enabled) {
-        document.querySelector('#theirInfo .muteIcon').style.visibility = "hidden";
-    } else {
-        document.querySelector('#theirInfo .muteIcon').style.visibility = "visible";
-    }
-}
-
+                if (video.srcObject) {
+                    if (video.srcObject.getTracks()[0].enabled === true) {
+                        var muteIcon = document.querySelector('#theirInfo .muteIcon');
+                        muteIcon.style.visibility = "hidden";
+                } else {
+                    var muteIcon = document.querySelector('#theirInfo .muteIcon');
+                    muteIcon.style.visibility = "visible";
+                }
+            }
             }, 2000)
 
-            // when the current user leaves the page
+            // when the current user leaves the page, prevent them and remind them to press the hang up button
             window.onbeforeunload = function() {
                 hangUp();
             }
+        </script>
 
             
         </script>

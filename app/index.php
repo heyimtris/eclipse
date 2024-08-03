@@ -1,7 +1,7 @@
 <?php
   session_start();
 
-if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true) {
+if (!$_SESSION['logged_in'] || $_SESSION['logged_in'] !== true || !$_SESSION['id']) {
     header("Location:../login/index.php");  // Redirect to login page
 }
 
